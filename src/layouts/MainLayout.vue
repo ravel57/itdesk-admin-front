@@ -35,7 +35,7 @@
     >
       <q-list>
         <EssentialLink
-          v-for="link in linksList"
+          v-for="link in store.instances"
           :key="link.title"
           v-bind="link"
         />
@@ -50,17 +50,9 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import EssentialLink, { EssentialLinkProps } from 'components/EssentialLink.vue'
+import EssentialLink from 'components/EssentialLink.vue'
 import axios from 'axios'
-
-const linksList: EssentialLinkProps[] = [
-  {
-    title: 'Docs',
-    caption: 'quasar.dev',
-    icon: 'school',
-    link: '/'
-  }
-]
+import { useStore } from 'stores/store'
 
 export default defineComponent({
   name: 'MainLayout',
@@ -69,12 +61,9 @@ export default defineComponent({
     EssentialLink
   },
 
-  data () {
-    return {
-      linksList,
-      leftDrawerOpen: false
-    }
-  },
+  data: () => ({
+    leftDrawerOpen: false
+  }),
 
   methods: {
     logout () {
@@ -90,6 +79,11 @@ export default defineComponent({
     toggleLeftDrawer () {
       this.leftDrawerOpen = !this.leftDrawerOpen
     }
+  },
+
+  setup (props, ctx) {
+    const store = useStore()
+    return { store }
   }
 })
 </script>
