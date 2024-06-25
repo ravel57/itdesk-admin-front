@@ -1,8 +1,7 @@
 <template>
   <q-item
     clickable
-    tag="a"
-    target="_blank"
+    tag="router-link"
     :href="link"
   >
     <q-item-section
