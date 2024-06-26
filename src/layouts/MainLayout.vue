@@ -1,5 +1,5 @@
 <template>
-  <q-layout view="lHh Lpr lFf">
+  <q-layout>
     <q-header elevated>
       <q-toolbar>
         <q-btn
@@ -10,11 +10,9 @@
           aria-label="Menu"
           @click="toggleLeftDrawer"
         />
-
         <q-toolbar-title>
           Quasar App
         </q-toolbar-title>
-
         <div>
           <q-btn
             flat
@@ -27,7 +25,6 @@
         </div>
       </q-toolbar>
     </q-header>
-
     <q-drawer
       v-model="leftDrawerOpen"
       show-if-above
@@ -41,7 +38,6 @@
         />
       </q-list>
     </q-drawer>
-
     <q-page-container>
       <router-view/>
     </q-page-container>
@@ -49,12 +45,11 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
 import EssentialLink from 'components/EssentialLink.vue'
 import axios from 'axios'
 import { useStore } from 'stores/store'
 
-export default defineComponent({
+export default {
   name: 'MainLayout',
 
   components: {
@@ -81,9 +76,9 @@ export default defineComponent({
     }
   },
 
-  setup (props, ctx) {
+  setup () {
     const store = useStore()
     return { store }
   }
-})
+}
 </script>
