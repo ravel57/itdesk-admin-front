@@ -9,7 +9,6 @@ declare module 'pinia' {
 }
 
 export default store((/* { ssrContext } */) => {
-  const pinia = createPinia()
   // pinia.use(SomePiniaPlugin)
-  return pinia
+  return createPinia()
 })

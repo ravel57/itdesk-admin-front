@@ -32,7 +32,7 @@
     >
       <q-list>
         <EssentialLink
-          v-for="link in store.instances"
+          v-for="link in store.links"
           :key="link.title"
           v-bind="link"
         />

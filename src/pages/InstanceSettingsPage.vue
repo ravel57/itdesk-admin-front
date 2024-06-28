@@ -1,23 +1,41 @@
 <template>
   <q-page>
-    <example-component
-      title="Example component"
+    <instances-setting
+      :title="instance.name"
+      :license-valid-until="instance.validUntil"
+      :users-count="instance.usersCount"
       active
     />
   </q-page>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
-import ExampleComponent from 'components/ExampleComponent.vue'
+import InstancesSetting from 'components/InstancesSetting.vue'
+import { useRoute } from 'vue-router'
+import { useStore } from 'stores/store'
+import { Instance } from 'stores/models'
 
-export default defineComponent({
+export default {
   name: 'IndexPage',
 
   components: {
-    ExampleComponent
+    InstancesSetting
   },
 
-  data: () => ({})
-})
+  data: () => ({
+    instanceId: -1,
+    instance: {} as Instance
+  }),
+
+  mounted () {
+    this.instanceId = Number(this.router.params.clientId)
+    this.store.instances.find((value: Instance) => value.id === this.instanceId)
+  },
+
+  setup () {
+    const store = useStore()
+    const router = useRoute()
+    return { store, router }
+  }
+}
 </script>
