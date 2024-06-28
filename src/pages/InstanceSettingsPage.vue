@@ -2,7 +2,7 @@
   <q-page>
     <instances-setting
       :title="instance.name"
-      :license-valid-until="instance.validUntil"
+      :valid-until="instance.validUntil"
       :users-count="instance.usersCount"
       active
     />
@@ -27,9 +27,9 @@ export default {
     instance: {} as Instance
   }),
 
-  mounted () {
-    this.instanceId = Number(this.router.params.clientId)
-    this.store.instances.find((value: Instance) => value.id === this.instanceId)
+  created () {
+    this.instanceId = Number(this.router.params.instanceId)
+    this.instance = this.store.instances.find((value: Instance) => value.id === this.instanceId) as Instance
   },
 
   setup () {

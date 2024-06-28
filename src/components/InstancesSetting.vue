@@ -7,7 +7,7 @@
   />
   <q-input
     v-model="formattedDate"
-    label="Enter Date"
+    label="Срок действия лицензии"
     mask="####-##-##"
     :rules="[val => !!val || 'Date is required']"
     @input="updateDate"
@@ -31,11 +31,6 @@
         </q-popup-proxy>
       </q-icon>
     </template>
-    <!--  <q-input-->
-    <!--    v-model="licenseValidUntil"-->
-    <!--    clearable-->
-    <!--    label="Дедлайн"-->
-    <!--  >-->
   </q-input>
 </template>
 
@@ -53,7 +48,7 @@ export default {
       type: Number,
       required: true
     },
-    licenseValidUntil: {
+    validUntil: {
       type: Date,
       required: true
     }
@@ -66,17 +61,16 @@ export default {
   computed: {
     formattedDate: {
       get (): string {
-        return this.licenseValidUntil ? this.licenseValidUntil.toISOString().substring(0, 10) : ''
+        return this.validUntil.toISOString().substring(0, 10)
       },
       set (value: string) {
         if (value) {
           this.updateDate(new Date(value))
-        } else {
-          /* empty */
         }
       }
     }
   },
+
   methods: {
     updateDate (newDate: Date) {
       this.$emit('update', newDate)

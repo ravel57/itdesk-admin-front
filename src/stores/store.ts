@@ -6,7 +6,7 @@ export const useStore = defineStore('counter', {
 
   state: () => ({
     links: [] as LinkElement[],
-    instances: [] as Instance[]
+    instances: [] as Array<Instance>
   }),
 
   getters: {},
@@ -15,8 +15,11 @@ export const useStore = defineStore('counter', {
     fetchData () {
       axios.get('/api/v1/instances')
         .then(response => {
-          console.log(response.data)
           this.instances = response.data
+          this.instances.forEach((instance: Instance) => {
+            instance.validUntil = new Date(instance.validUntil)
+            instance.createdAt = new Date(instance.createdAt)
+          })
           this.links = response.data.map((instance : Instance) => <LinkElement> {
             title: instance.name,
             caption: `${instance.validUntil}`,
